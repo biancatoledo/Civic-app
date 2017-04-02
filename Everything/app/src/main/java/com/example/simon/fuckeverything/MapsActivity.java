@@ -21,6 +21,12 @@ import java.util.HashMap;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private ArrayList<String> names;
+    private ArrayList<String> descriptions;
+    private ArrayList<Integer> makers;
+    private ArrayList<LatLng> locations;
+
+
     private GoogleMap mMap;
 
     Button button1, button2, button3;
@@ -46,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        button = new Button(findViewById(R.layout.activity_maps.));
 
         //button.OnClickListener
-          //      @OnClick
+        //      @OnClick
 
 
         //}
@@ -67,26 +73,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(34,-118), 9));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(34, -118), 9));
 
+
+        makeDatabase();
 
         makeMapFromDatabase();
 
         //test
-        addMarkerToMap(new LatLng(34.01,-118.01),"Marker","describes af",0);
+        addMarkerToMap(new LatLng(34.01, -118.01), "Marker", "describes af", 0);
         makeMapFromDatabase();
-        addMarkerToMap(new LatLng(34.1,-118.1),"Marker2","describes af2",1);
-        addMarkerToMap(new LatLng(34,-118),"Marker","describes af",0);
+        addMarkerToMap(new LatLng(34.1, -118.1), "Marker2", "describes af2", 1);
+        addMarkerToMap(new LatLng(34, -118), "Marker", "describes af", 0);
+
+    }
+
+    void makeDatabase() {
+        names.add("Too much trash");
+        locations.add(new LatLng(34.01, -118.01));
+        descriptions.add("There was too much trash and it's bad. April 15");
+        makers.add(1);
+
+        names.add("Setup rainwater harvesting");
+        locations.add(new LatLng(34.2, -118.2));
+        descriptions.add("Recycling water is good. April 22");
+        makers.add(1);
+
+        names.add("Teach kids to recycle");
+        locations.add(new LatLng(33.99, -118.02));
+        descriptions.add("Fun. April 21");
+        makers.add(1);
+
+        names.add("Clean up litter");
+        locations.add(new LatLng(33.95, -117.97));
+        descriptions.add("Litter is bad, April 22");
+        makers.add(1);
 
     }
 
     void makeMapFromDatabase() {
         mMap.clear();
-        //gets data from database and makes it into lists
-        //use addMarkerList to get them on the map
+        addMarkerList(locations, names, descriptions, makers);
     }
 
-    void addMarkerList(ArrayList<LatLng> locations, ArrayList<String> names, ArrayList<String> descriptions,ArrayList<Integer> makers) {
+    void addMarkerList(ArrayList<LatLng> locations, ArrayList<String> names, ArrayList<String> descriptions, ArrayList<Integer> makers) {
         for (int i = 0; i < locations.size(); i++) {
             addMarkerToMap(locations.get(i), names.get(i), descriptions.get(i), makers.get(i));
         }
@@ -95,13 +125,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     void addMarkerToMap(LatLng loc, String name, String description, int maker) {
         float color;
 
-        // if maker is self
-        color = BitmapDescriptorFactory.HUE_GREEN;
-        // if maker is not self
         color = BitmapDescriptorFactory.HUE_BLUE;
 
         //test
-        if (maker==0) {
+        if (maker == 0) {
             color = BitmapDescriptorFactory.HUE_GREEN;
         }
 
@@ -114,23 +141,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     void addMarkerToDatabase(LatLng loc, String name, String description) {
-        //add Marker info to database
-        //update map
-    }
-    void removeMarker(LatLng loc) {
-        //remove Marker info from database
-        //update map
-    }
-
-    public void userAdd() {
-        //triggered by buttom
-
-        //Some sort of interface
-        //Gets data and adds to database
+        locations.add(loc);
+        names.add(name);
+        descriptions.add(description);
+        makers.add(0);
 
         makeMapFromDatabase();
     }
 
+    void removeMarker(LatLng loc) {
+        for (int i = 0; i < locations.size(); i++) {
+            if (loc.equals(locations.get(i))) {
+                locations.remove(i);
+                names.remove(i);
+                descriptions.remove(i);
+                makers.remove(i);
+                return;
+            }
+        }
+    }
+
+    public void userAdd() {
+        // get stuff
+        makeMapFromDatabase();
+    }
 
 
 }
