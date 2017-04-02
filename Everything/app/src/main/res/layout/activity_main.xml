@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.raymond.ecomap.MainActivity"
+    android:background="@drawable/home"
+    android:weightSum="1">
+
+    <Button
+        android:id="@+id/loginbtn"
+        android:layout_width="216dp"
+        android:layout_height="125dp"
+        android:layout_weight="0.01"
+        android:text="Login"
+        android:layout_margin="480dp"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
