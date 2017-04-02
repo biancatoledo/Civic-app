@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_005"
+        android:id="@+id/imageButton" />
+</LinearLayout>
